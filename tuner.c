@@ -392,7 +392,7 @@ void cSatipTuner::SetSessionTimeout(const char *sessionP, int timeoutP)
   sessionM = sessionP;
   if (nextServerM.IsQuirk(cSatipServer::eSatipQuirkSessionId) && !isempty(*sessionM) && startswith(*sessionM, "0"))
      rtspM.SetSession(SkipZeroes(*sessionM));
-  timeoutM = (timeoutP > eMinKeepAliveIntervalMs) ? timeoutP : eMinKeepAliveIntervalMs;
+  timeoutM = (timeoutP < eMinKeepAliveIntervalMs) ? timeoutP : eMinKeepAliveIntervalMs;
 }
 
 void cSatipTuner::SetupTransport(int rtpPortP, int rtcpPortP, const char *streamAddrP, const char *sourceAddrP)
