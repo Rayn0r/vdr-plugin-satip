@@ -289,15 +289,17 @@ bool cSatipRtsp::Setup(const char *uriP, int rtpPortP, int rtcpPortP, bool useTc
      SATIP_CURL_EASY_SETOPT(handleM, CURLOPT_INTERLEAVEDATA, NULL);
 
      SATIP_CURL_EASY_PERFORM(handleM);
+
+     if (headerBufferM.Size() > 0) {
+        ParseHeader();
+        headerBufferM.Reset();
+        }
+
      // Session id is now known - disable header parsing
      SATIP_CURL_EASY_SETOPT(handleM, CURLOPT_HEADERFUNCTION, NULL);
      SATIP_CURL_EASY_SETOPT(handleM, CURLOPT_WRITEHEADER, NULL);
      SATIP_CURL_EASY_SETOPT(handleM, CURLOPT_WRITEFUNCTION, NULL);
      SATIP_CURL_EASY_SETOPT(handleM, CURLOPT_WRITEDATA, NULL);
-     if (headerBufferM.Size() > 0) {
-        ParseHeader();
-        headerBufferM.Reset();
-        }
      if (dataBufferM.Size() > 0) {
         ParseData();
         dataBufferM.Reset();
