@@ -435,7 +435,7 @@ void cSatipRtsp::ParseHeader(void)
            int timeout = -1;
            char *session = NULL;
            if (sscanf(r, "Session:%m[^;];timeout=%11d", &session, &timeout) == 2)
-              tunerM.SetSessionTimeout(skipspace(session), timeout * 1000);
+              tunerM.SetSessionTimeout(skipspace(session), timeout * 900);
            else if (sscanf(r, "Session:%m[^;]", &session) == 1)
               tunerM.SetSessionTimeout(skipspace(session), -1);
            FREE_POINTER(session);
